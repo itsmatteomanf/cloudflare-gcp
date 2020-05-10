@@ -19,6 +19,12 @@ DATASET=""
 # optional – BigQuery table to write to. Will be created if necessary.
 TABLE=""
 
+# optional - Partitioning of the table in BigQuery. default: true.
+PARTITIONING=
+
+# optional - Partitioning field for the table in BigQuery (suggested: EdgeStartTimestamp for HTTP, Timestamp for Spectrum). default: EdgeStartTimestamp.
+PARTITIONING_FIELD=""
+
 # optional - the name of your Cloud Function. default: gcsbq
 FN_NAME=""
 ```

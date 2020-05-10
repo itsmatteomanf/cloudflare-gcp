@@ -18,12 +18,19 @@ async function gcsbq (file, context) {
   const filename = storage.bucket(file.bucket).file(file.name)
 
   /* Configure the load job and ignore values undefined in schema */
-  const metadata = {
+  let metadata = {
     sourceFormat: 'NEWLINE_DELIMITED_JSON',
     schema: {
       fields: schema
     },
     ignoreUnknownValues: true
+  }
+
+  if (process.env.PARTITIONING) {
+    metadata.timePartitioning = {
+      type: 'DAY',
+      field: process.env.PARTITIONING_FIELD
+    }
   }
 
   const addToTable = async (tableId) => {
